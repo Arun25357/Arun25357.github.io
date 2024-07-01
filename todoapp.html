@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="my-3">My to-do</h1>
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <div class="input-group mb-3">
+            <input
+              id="input"
+              type="text"
+              class="form-control"
+              placeholder="ใส่สิ่งที่คุณต้องการจะทำ"
+              aria-label="todo name"
+              aria-describedby="button-add"
+            />
+            <button
+              class="btn btn-primary"
+              type="button"
+              id="button-add"
+              onclick="addtodo()"
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-8">
+          <ul class="list-group" id="listtodo">
+            <li class="list-group-item">An item <button class="btn btn-danger btn-sm float-end" onclick="deleteItem(this)">Delete</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script>
+      function addtodo() {
+        const inputValue = document.getElementById("input").value;
+        
+        if (inputValue === "") {
+          alert("Please enter a to-do item.");
+          return;
+        }
+
+        // Create new list item element
+        let newElement = document.createElement("li");
+        newElement.classList.add("list-group-item");
+
+        // Create text node with input value
+        let newTxtElement = document.createTextNode(inputValue);
+
+        // Append text to list item
+        newElement.appendChild(newTxtElement);
+
+        // Create delete button
+        let deleteButton = document.createElement("button");
+        deleteButton.classList.add("btn", "btn-danger", "btn-sm", "float-end");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() { deleteItem(this); };
+
+        // Append delete button to list item
+        newElement.appendChild(deleteButton);
+
+        // Append list item to list
+        let listElement = document.getElementById("listtodo");
+        listElement.appendChild(newElement);
+
+        // Clear the input field
+        document.getElementById("input").value = "";
+      }
+
+      function deleteItem(button) {
+        // Remove the parent list item
+        let listItem = button.parentElement;
+        listItem.remove();
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
